@@ -24,7 +24,6 @@ public class CompanyController {
         } catch (WrongParamsException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
     }
 
 }

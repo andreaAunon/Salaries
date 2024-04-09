@@ -1,5 +1,7 @@
 package com.helloworld.salaries.mapper;
 
+import com.helloworld.salaries.model.Salary;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -12,5 +14,8 @@ public interface SalaryMapper {
             "FROM SALARY " +
             "INNER JOIN EMPLOYEE ON SALARY.CODEMPLEADO = EMPLOYEE.#{codeempleado} " +
             "WHERE SALARYYEAR=#{year}")
-    List<Double> getSalarioMensual(int codeempleado, int year);
+    List<Salary> getSalarioMensual(int codeempleado, int year);
+
+    @Insert("INSERT INTO SALARY () VALUES ()")
+    Boolean addSalarioMensual (int codeempleado, int year);
 }

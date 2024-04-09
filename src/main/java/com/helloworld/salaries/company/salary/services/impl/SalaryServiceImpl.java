@@ -3,6 +3,7 @@ package com.helloworld.salaries.company.salary.services.impl;
 import com.helloworld.salaries.company.salary.services.SalaryService;
 import com.helloworld.salaries.exceptions.WrongParamsException;
 import com.helloworld.salaries.mapper.SalaryMapper;
+import com.helloworld.salaries.model.Salary;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,9 +20,19 @@ public class SalaryServiceImpl implements SalaryService {
     }
 
     @Override
-    public List<Double> getSalaryByEmployeeAndYear(int employeeCode, int year) throws WrongParamsException {
+    public List<Salary> getSalaryByEmployeeAndYear(int employeeCode, int year) throws WrongParamsException {
         validateYear(year);
         return salaryMapper.getSalarioMensual(employeeCode,year);
+    }
+
+    @Override
+    public Boolean addSalaryByEmployeeAndYear(int employeeCode, int year) throws WrongParamsException {
+        if(getSalaryByEmployeeAndYear(employeeCode,year).size() <= 0){
+            return false;
+        }
+
+        salaryMapper.addSalarioMensual(employeeCode,year);
+        return true;
     }
 
     private void validateYear(int year) throws WrongParamsException {
@@ -30,4 +41,11 @@ public class SalaryServiceImpl implements SalaryService {
         }
     }
 
+    private void addSalaries(int employeeCode, int year){
+        int months = 12;
+        for(int i=0; i < months; i++){
+            Salary salary = new Salary();
+
+        }
+    }
 }

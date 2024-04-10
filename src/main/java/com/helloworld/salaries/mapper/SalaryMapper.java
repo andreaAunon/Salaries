@@ -16,8 +16,9 @@ public interface SalaryMapper {
             "WHERE S.SALARYYEAR=#{year}")
     List<Salary> getSalarioMensual(int codempleado, int year);
 
-    @Insert("INSERT INTO SLARY (id, codempleado, costehora, nombreempleado, salary, salarymonth, salaryyear) " +
-            "VALUES (#{salary.id, #{salary.employee.codempleado}, #{salary.costehora}, " +
-            "#{salary.employee.codempleado}, #{salary.salary}, #{salary.salarymonth}, #{salary.salaryyear})")
+    //@Insert("INSERT INTO SALARY (id, codempleado, costehora, nombreempleado, salary, salarymonth, salaryyear) " +
+    //        "VALUES (#{salary.id, #{salary.employee.codempleado}, #{salary.costehora}, " +
+    //        "#{salary.employee.codempleado}, #{salary.salary}, #{salary.salarymonth}, #{salary.salaryyear})")
+    @Insert("INSERT INTO SALARY () VALUES ()")
     Boolean addSalarioMensual (Salary salary);
 }

@@ -1,5 +1,6 @@
 package com.helloworld.salaries.company.salary.services.impl;
 
+import com.helloworld.salaries.company.salary.services.EmployeeService;
 import com.helloworld.salaries.company.salary.services.SalaryService;
 import com.helloworld.salaries.exceptions.WrongParamsException;
 import com.helloworld.salaries.mapper.SalaryMapper;
@@ -13,25 +14,29 @@ import java.util.List;
 public class SalaryServiceImpl implements SalaryService {
 
     private final int minimalYear = 2000;
-    private final SalaryMapper salaryMapper;
+    private SalaryMapper salaryMapper;
+    private EmployeeService employeeService;
 
-    public SalaryServiceImpl(SalaryMapper salaryMapper){
+    public SalaryServiceImpl(SalaryMapper salaryMapper, EmployeeService employeeService){
         this.salaryMapper = salaryMapper;
+        this.employeeService = employeeService;
     }
 
     @Override
-    public List<Salary> getSalaryByEmployeeAndYear(int employeeCode, int year) throws WrongParamsException {
+    public List<Salary> getSalaryByEmployeeAndYear(int codempleado, int year) throws WrongParamsException {
         validateYear(year);
-        return salaryMapper.getSalarioMensual(employeeCode,year);
+        return salaryMapper.getSalarioMensual(codempleado,year);
     }
 
     @Override
-    public Boolean addSalaryByEmployeeAndYear(int employeeCode, int year) throws WrongParamsException {
-        if(getSalaryByEmployeeAndYear(employeeCode,year).size() <= 0){
+    public Boolean addSalaryByEmployeeAndYear(int codempleado, int year, Salary salary) throws WrongParamsException {
+        if(getSalaryByEmployeeAndYear(codempleado,year).size() <= 0){
             return false;
         }
 
-        salaryMapper.addSalarioMensual(employeeCode,year);
+        salary.setEmployee(employeeService.getEmployeeByCode(codempleado));
+        salary.setSalaryyear(year);
+        salaryMapper.addSalarioMensual(salary);
         return true;
     }
 
@@ -41,11 +46,11 @@ public class SalaryServiceImpl implements SalaryService {
         }
     }
 
-    private void addSalaries(int employeeCode, int year){
+    private void addSalaries(Salary salary){
         int months = 12;
         for(int i=0; i < months; i++){
-            Salary salary = new Salary();
-
+            salary.setSalarymonth(i+1);
+            salaryMapper.addSalarioMensual(salary);
         }
     }
 }

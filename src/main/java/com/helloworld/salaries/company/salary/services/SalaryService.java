@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface SalaryService {
 
-    List<Salary> getSalaryByEmployeeAndYear(int employeeCode, int year) throws WrongParamsException;
-    Boolean addSalaryByEmployeeAndYear(int employeeCode, int year) throws WrongParamsException;
+    List<Salary> getSalaryByEmployeeAndYear(int codempleado, int year) throws WrongParamsException;
+    Boolean addSalaryByEmployeeAndYear(int codempleado, int year, Salary salary) throws WrongParamsException;
 }

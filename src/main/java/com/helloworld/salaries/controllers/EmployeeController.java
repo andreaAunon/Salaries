@@ -57,13 +57,31 @@ public class EmployeeController {
                     @ApiResponse(responseCode = "200", description = "Salario medio por año"),
                     @ApiResponse(responseCode = "400", description = "El año no es válido")
             })
-    public ResponseEntity<?> addSalaryByEmployeeAndYear(@PathVariable int employeeCode, @PathVariable int year) {
+    public ResponseEntity<?> addSalaryByEmployeeAndYear(@PathVariable int employeeCode, @PathVariable int year,
+                                                        @RequestBody Salary salary) {
        Boolean isAdd = false;
         try {
-            isAdd = this.salaryService.addSalaryByEmployeeAndYear(employeeCode,year);
+            isAdd = this.salaryService.addSalaryByEmployeeAndYear(employeeCode,year,salary);
             return ResponseEntity.ok(isAdd);
         } catch (WrongParamsException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @GetMapping("?name=asdads&codEmployee=121&page=1")
+    @Operation(summary = "Realiza una búsqueda paginada de empleados")
+    @Tag(
+            name = "Busca por código de empleaod y nombre",
+            description = "Este controlador se encarga de hacer una búsqueda paginada de un empleado" +
+                    "por su código y su nombre"
+    )
+    @ApiResponses(
+            value ={
+                    @ApiResponse(responseCode = "200", description = "Empleado"),
+                    @ApiResponse(responseCode = "400", description = "El empleado no existe")
+            })
+    public ResponseEntity<?> getEmployeeByCodeAndName() {
+        Boolean isAdd = false;
+        return ResponseEntity.ok(isAdd);
     }
 }

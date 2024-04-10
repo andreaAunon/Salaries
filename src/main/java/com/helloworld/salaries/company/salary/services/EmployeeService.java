@@ -1,10 +1,11 @@
 package com.helloworld.salaries.company.salary.services;
 
 import com.helloworld.salaries.exceptions.WrongParamsException;
+import com.helloworld.salaries.model.Employee;
 
 import java.util.List;
 
 public interface EmployeeService {
 
-    List<Double> getSalaryByEmployeeAndYear(int employeeCode, int year) throws WrongParamsException;
+    Employee getEmployeeByCode(int codempleado);
 }

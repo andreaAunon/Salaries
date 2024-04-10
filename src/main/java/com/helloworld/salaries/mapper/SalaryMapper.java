@@ -11,11 +11,13 @@ import java.util.List;
 public interface SalaryMapper {
 
     @Select("SELECT SALARY " +
-            "FROM SALARY " +
-            "INNER JOIN EMPLOYEE ON SALARY.CODEMPLEADO = EMPLOYEE.#{codeempleado} " +
-            "WHERE SALARYYEAR=#{year}")
-    List<Salary> getSalarioMensual(int codeempleado, int year);
+            "FROM SALARY S " +
+            "INNER JOIN EMPLOYEE E ON S.CODEMPLEADO = E.#{codeempleado} " +
+            "WHERE S.SALARYYEAR=#{year}")
+    List<Salary> getSalarioMensual(int codempleado, int year);
 
-    @Insert("INSERT INTO SALARY () VALUES ()")
-    Boolean addSalarioMensual (int codeempleado, int year);
+    @Insert("INSERT INTO SLARY (id, codempleado, costehora, nombreempleado, salary, salarymonth, salaryyear) " +
+            "VALUES (#{salary.id, #{salary.employee.codempleado}, #{salary.costehora}, " +
+            "#{salary.employee.codempleado}, #{salary.salary}, #{salary.salarymonth}, #{salary.salaryyear})")
+    Boolean addSalarioMensual (Salary salary);
 }
